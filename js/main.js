@@ -1,3 +1,36 @@
+/* Сортировка таблицы слева */
+table1.onclick = function (e) {
+    if (e.target.tagName != 'TH') return;
+    let th = e.target;
+    sortTable(th.cellIndex, th.dataset.type, 'table1');
+};
+/* Сортировка таблицы справа */
+table2.onclick = function (e) {
+    if (e.target.tagName != 'TH') return;
+    let th = e.target;
+    sortTable(th.cellIndex, th.dataset.type, 'table2');
+};
+
+function sortTable(colNum, type, id) {
+    let elem = document.getElementById(id)
+    let tbody = elem.querySelector('tbody');
+    let rowsArray = Array.from(tbody.rows);
+    let compare;
+    switch (type) {
+        case 'number':
+            compare = function (rowA, rowB) {
+                return rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML;
+            };
+            break;
+        case 'string':
+            compare = function (rowA, rowB) {
+                return rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML ? 1 : -1;
+            };
+            break;
+    }
+    rowsArray.sort(compare);
+    tbody.append(...rowsArray);
+}
 
 
 /* Добавить новый товар */
@@ -154,6 +187,28 @@ document.querySelector('.cart').addEventListener('click', function (e) {
             goods[i].splice(4, 1, goods[i][4] - 1)
             localStorage.setItem('goods', JSON.stringify(goods))
             update_goods()
+        }
+    }
+})
+
+/* Изменение скидки */
+document.querySelector('.cart').addEventListener('input', function (e) {
+    if (!e.target.dataset.goodid) {
+        return
+    }
+    let goods = JSON.parse(localStorage.getItem('goods'))
+    for (let i = 0; i < goods.length; i++) {
+        if (goods[i][0] == e.target.dataset.goodid) {
+            // Скидка
+            goods[i][5] = e.target.value
+            // Цена со скидкой
+            goods[i][6] = goods[i][4] * goods[i][2] - goods[i][4] * goods[i][2] * goods[i][5] * 0.01
+            localStorage.setItem('goods', JSON.stringify(goods))
+            update_goods()
+            // Поставить фокус в поле скидки и передвинуть курсор в конец
+            let input = document.querySelector(`[data-goodid="${goods[i][0]}"]`)
+            input.focus()
+            input.selectionStart = input.value.length;
         }
     }
 })
