@@ -12,15 +12,85 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 cool-xxxl-5">
-
+            <div class="col-xs-12 col-xl-5">
+                <div class="goods_box" id="goods">
+                    <div class="menu">
+                        <input type="text" placeholder="Поиск" class="search">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">&#10010;</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table goods table mt-3" id="table1">
+                            <thead>
+                                <tr class="table-primary allign-middle">
+                                    <th data-type="number">№</th>
+                                    <th data-type="string">Название</th>
+                                    <th data-type="number">Цена, &#8381;</th>
+                                    <th data-type="number">Количество</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                <!-- Строки с товарами -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-12 cool-xxxl-7">
+            <div class="col-xs-12 col-xl-7">
+                <div class="price_box">
+
+                    <div class="menu">
+                        <div class="price_title"> Итого: <span class="price_result">0 &#8381;</span></div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="price table mt-3" id="table2">
+                            <thead>
+                                <tr class="table-primary allign-middle">
+                                    <th data-type="number">№</th>
+                                    <th data-type="string">Название</th>
+                                    <th data-type="number">Цена/шт, &#8381;</th>
+                                    <th data-type="number">Количество</th>
+                                    <th>Скидка,%</th>
+                                    <th data-type="number">Цена, &#8381;</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="cart">
+                                <!-- Строки с товарами -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
 
+    <!-- Модальное окно бдобавление товара -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Добавить товар</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-secondary mb-3">Обновить с сервера</button><br>
+                    <label for="good_name" class="form-label">Название товара</label>
+                    <input type="text" class="form-control mb-3" id="good_name" maxlength="40">
+                    <label for="good_price" class="form-label">Цена</label>
+                    <input type="number" class="form-control mb-3" id="good_price">
+                    <label for="good_count" class="form-label">Количество</label>
+                    <input type="number" class="form-control mb-3" id="good_count" min="1" value="1">
+                    <button type="submit" class="add_new btn btn-success">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/list.min.js"></script>
